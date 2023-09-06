@@ -1,9 +1,9 @@
-# Sample Hardhat Project
+# Test Case 2
 
 Critical Issues
 1) No check on argument array for joinPonzi(address[] calldata _afilliates).
-joinPonzi(address[] calldata _afilliates) can take arbitrary array value as long as its length is same as affiliates_
-Thus anybody with enough ethers can become affiliate free of charge
+Can take arbitrary array value as long as its length is same as affiliates_ .
+Thus, anybody can become affiliate free of charge.
 2) Any affiliate with 10 ethers can become an owner and return spent ethers right afterward
 
 Medium Risk Findings
@@ -18,7 +18,8 @@ mapping(address => bool) affiliates.
 Low Risk and Non-Critical Issues
 1) buyOwnerRole, ownerWithdraw and addNewAffilliate lacks zero-check on address parameter
 
-```To execute PoC run
+To execute PoC run
+```
 npx hardhat test
 ```
 
