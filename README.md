@@ -5,7 +5,7 @@ Critical Issues
 Can take arbitrary array as long as its length is matched.
 Thus, anybody can become affiliate free of charge.
 2) With buyOwnerRole(address newAdmin) and ownerWithdraw(address to, uint256 amount) any
-affiliate with 10 ethers can become an owner and return spent ethers right afterward.
+affiliate with 10 ethers can become owner and return spent ethers right afterward.
 
 Medium Risk Findings
 1) Method payable(to).call without transaction status check.
