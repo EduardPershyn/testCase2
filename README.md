@@ -21,6 +21,7 @@ Low Risk and Non-Critical Issues
 
 To execute PoC run
 ```
+npm install hardhat
 npx hardhat test
 ```
 

